@@ -1,0 +1,93 @@
+﻿@model List<BlogSite.Data.CATEGORİ>
+@{
+    ViewBag.Title = "Insert";
+    Layout = "~/Views/Shared/_MyLayoutPage.cshtml";
+}
+
+<h2>&nbsp;Forma Hoş Geldiniz</h2>
+<div class="row">
+    <div class=" col-md-7">
+        <div class="col-md-12">
+
+
+
+            <form method="post" action="@Url.Action("Insert")">
+
+                <div class="form-group">
+                    <h4>Hangi Kategoride İşlem Yapmak İstersiniz?</h4>
+                    <label for="exampleFormControlSelect1">Kategoriler</label>
+                    
+                    <select class="form-control" name="CATEGORIID" required>
+                        <option value="" disabled selected>Seçiniz</option>
+                        @foreach (var item in Model)
+                        {
+                            <option value="@item.CATEGORIID">@item.CATEGORINAME</option>
+
+                        }
+                    </select>
+
+
+                </div>
+                <div class="form-group">
+                    <label>Konu Başlığı</label>
+                    <input type="text" class="form-control" name="ContentHead" aria-describedby="emailHelp" placeholder="Konu Başlığı" required>
+
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">İçerik</label>
+                    <textarea class="form-control" name="ContentText" id="exampleFormControlTextarea1" rows="5" required></textarea >
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">Lütfen Dosya Giriniz</label>
+                    <input type="file" class="form-control-file" name="ContentFile" id="exampleFormControlFile1">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Kaydet</button> <a href="@Url.Action("List")" class="btn btn-success">İçerik İşlemleri</a>
+
+
+                </div>
+            </form>
+        </div>
+
+
+
+    </div>
+    <div class="col-md-5">
+        <div class="row">
+            <div class="col-12-md">
+                <!-- Side Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Serpil ÇAKMAK</h5>
+                    <div class="card-body">
+                        Köpeğime araba çarptı görme kaybı yaşadı ameliyatla %10 görme yetisi kazandı fakat bakımı zorlaştı agresifleşti barınağa vermelimiyim?
+                        <input class="form-control" type="text" placeholder="Yorum Yap">
+                    </div>
+                </div>
+                <div class="card my-4">
+                    <h5 class="card-header">Hakan TAŞAR</h5>
+                    <div class="card-body">
+                        Köpeğime araba çarptı görme kaybı yaşadı ameliyatla %10 görme yetisi kazandı fakat bakımı zorlaştı agresifleşti barınağa vermelimiyim?
+                        <input class="form-control" type="text" placeholder="Yorum Yap">
+                    </div>
+                </div>
+                <div class="card my-4">
+                    <h5 class="card-header">Sabri BORANKOĞLU</h5>
+                    <div class="card-body">
+                        Köpeğime araba çarptı görme kaybı yaşadı ameliyatla %10 görme yetisi kazandı fakat bakımı zorlaştı agresifleşti barınağa vermelimiyim?
+                        <input class="form-control" type="text" placeholder="Yorum Yap">
+                    </div>
+                </div>
+                <div class="card my-4">
+                    <h5 class="card-header">Vedat MURİQİ</h5>
+                    <div class="card-body">
+                        Köpeğime araba çarptı görme kaybı yaşadı ameliyatla %10 görme yetisi kazandı fakat bakımı zorlaştı agresifleşti barınağa vermelimiyim?
+                        <input class="form-control" type="text" placeholder="Yorum Yap">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

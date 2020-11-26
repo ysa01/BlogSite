@@ -1,0 +1,117 @@
+﻿@using BlogSite.Bussiness.Models.Requests.Auth
+
+    < !DOCTYPE html >
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <script src="~/Scripts/jquery-3.5.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+</head>
+<body>
+
+    <style type="text/css">
+        body {
+            background-image: url('../../Resimler/arkaplan.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+
+            <i class="fas fa-paw fa-4x text-primary pr-3 mr-3 "></i>
+            <a style="font-family:Stencil; font-size:30px;" class="navbar-brand"
+               href="@Url.Action("Index","Home")">ZOO BLOG </a>
+            <div class="login-button" role="button" aria-label="Basic example">
+
+
+                <a style="font-family:Stencil; font-size:20px;" class="navbar-expand-sm btn btn-secondary btn-group-sm"
+                   href="~/Content/Insert">FORM </a>
+
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="@Url.Action("Index","Home")">
+                            Ana Sayfa
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <a class="btn btn-secondary dropdown-toggle" href="@Url.Action("Categories","Content")" role="link" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Kategoriler
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+
+                                <a class="dropdown-item" href="#">Kedi</a>
+                                <a class="dropdown-item" href="#">Köpek</a>
+                                <a class="dropdown-item" href="#">Kuş</a>
+                                <a class="dropdown-item" href="#">Arslan</a>
+                                <a class="dropdown-item" href="#">Kaplan</a>
+
+
+                            </div>
+                        </div>
+
+                        @*<a class="nav-link" href="@Url.Action("Categories","Home")">KATAGORİLER</a>*@
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("about","Home")">Hakkında</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("contact","Home")">İletişim</a>
+                    </li>
+                    @if (User.Identity.IsAuthenticated == false)
+                    {
+
+                   
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Login","Auth")">Giriş Yap</a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Register","Auth")">Kaydol</a>
+
+                    </li>
+                    }
+                    else
+                    {
+                    <li class="nav-item">
+                        <a class="nav-link"><i class="fas fa-user" style="color:blue"> </i> @User.Identity.Name</a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Logout","Auth")">Çıkış</a>
+
+                    </li>}
+
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+    <br /><br /><br /><br />
+    <div class="container">  @RenderBody() </div>
+
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; ZOOBLOG 2020</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+
+
+</body>
+</html>

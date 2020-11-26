@@ -1,0 +1,66 @@
+﻿@model List<BlogSite.Data.CATEGORİ>
+@{
+    ViewBag.Title = "DeleteCategories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="table">
+
+    <table class="badge-dark" style="border:solid" border="1">
+        <tr>
+            <th>Kategori Resmi</th>
+            <th>Kategori Id </th>
+            <th> Kategori Adı</th>
+            <th> Kategori Link</th>
+            <th> içerik Seçiniz </th>
+            <th>    </th>
+            <th>  </th>
+            <th>    </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+
+
+            <tr>
+                <td>
+                </td>
+                <td>
+                    @item.CATEGORIID
+                </td>
+                <td>
+                    @item.CATEGORINAME
+                </td>
+                <td>   @item.CATEGORILINK  </td>
+                <td>
+                    <div class="form-group">
+
+                        <label for="exampleFormControlSelect1">Kategoriler</label>
+
+                        <select class="form-control" name="CATEGORIID" required>
+                            <option value="" disabled selected>Seçiniz</option>
+                          
+                                <option value="@item.CATEGORIID">@item.CATEGORINAME</option>
+                          
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <a class="btn btn-info" href="">Resim Yükle</a>
+                </td>
+                <td>
+                    <a class="btn btn-warning" href="@Url.Action("UpdateFormCategories",new { Id=item.CATEGORIID })">Güncelle</a>
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-danger" href="@Url.Action("DeleteCategories",new { Id=item.CATEGORIID })">Sil</a>
+
+                </td>
+            </tr>
+        }
+    </table>
+
+    <div>
+        <a href="@Url.Action("CategoriesInsert")" class="btn btn-success">Kategori Ekle</a>
+    </div>
+</div>

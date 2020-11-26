@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "CategoriesInsert";
+    Layout = "~/Views/Shared/_MyLayoutPage.cshtml";
+}
+
+<h2>Kategori Ekleme</h2>
+
+<form method="post" action="@Url.Action("CategoriesInsert")">
+
+    <div class="form-group">
+        <label>Kategori Adı</label>
+        <input type="text" class="form-control" name="categoriesName" aria-describedby="emailHelp" placeholder="Kategori Adı">
+
+    </div>
+    <div class="form-group">
+        <label>Kategori Linki </label>
+        <input type="text" class="form-control" name="categoriesLink" aria-describedby="emailHelp" placeholder="Kategori Linki">
+
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlFile1">Lütfen Resim Giriniz</label>
+        <input type="file" class="form-control-file" name="categoriesFile" id="exampleFormControlFile1">
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary"  >Kaydet</button>
+
+    </div>
+</form>

@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BLOG_DBModelStoreContainer" CdmEntityContainer="BLOG_DBEntities">
+    <EntitySetMapping Name="CATEGORİ">
+      <EntityTypeMapping TypeName="BLOG_DBModel.CATEGORİ">
+        <MappingFragment StoreEntitySet="CATEGORİ">
+          <ScalarProperty Name="CATEGORIID" ColumnName="CATEGORIID" />
+          <ScalarProperty Name="CATEGORINAME" ColumnName="CATEGORINAME" />
+          <ScalarProperty Name="CATEGORILINK" ColumnName="CATEGORILINK" />
+          <ScalarProperty Name="INSERTDATE" ColumnName="INSERTDATE" />
+          <ScalarProperty Name="UPDATEDATE" ColumnName="UPDATEDATE" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="COMMENTS">
+      <EntityTypeMapping TypeName="BLOG_DBModel.COMMENTS">
+        <MappingFragment StoreEntitySet="COMMENTS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="CONTENTID" ColumnName="CONTENTID" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="INSERTDATE" ColumnName="INSERTDATE" />
+          <ScalarProperty Name="UPDATEDATE" ColumnName="UPDATEDATE" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CONTENTFILES">
+      <EntityTypeMapping TypeName="BLOG_DBModel.CONTENTFILES">
+        <MappingFragment StoreEntitySet="CONTENTFILES">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="PATH" ColumnName="PATH" />
+          <ScalarProperty Name="CONTENTID" ColumnName="CONTENTID" />
+          <ScalarProperty Name="INSERTDATE" ColumnName="INSERTDATE" />
+          <ScalarProperty Name="UPDATEDATE" ColumnName="UPDATEDATE" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CONTENTS">
+      <EntityTypeMapping TypeName="BLOG_DBModel.CONTENTS">
+        <MappingFragment StoreEntitySet="CONTENTS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="HEAD" ColumnName="HEAD" />
+          <ScalarProperty Name="CONTENTTEXT" ColumnName="CONTENTTEXT" />
+          <ScalarProperty Name="INSERTDATE" ColumnName="INSERTDATE" />
+          <ScalarProperty Name="UPDATEDATE" ColumnName="UPDATEDATE" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
+          <ScalarProperty Name="CATEGORIID" ColumnName="CATEGORIID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ROLES">
+      <EntityTypeMapping TypeName="BLOG_DBModel.ROLES">
+        <MappingFragment StoreEntitySet="ROLES">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="INSERTDATE" ColumnName="INSERTDATE" />
+          <ScalarProperty Name="UPDATEDATE" ColumnName="UPDATEDATE" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USER_ROLE">
+      <EntityTypeMapping TypeName="BLOG_DBModel.USER_ROLE">
+        <MappingFragment StoreEntitySet="USER_ROLE">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ROLEID" ColumnName="ROLEID" />
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
+          <ScalarProperty Name="INSERTDATE" ColumnName="INSERTDATE" />
+          <ScalarProperty Name="UPDATEDATE" ColumnName="UPDATEDATE" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USERS">
+      <EntityTypeMapping TypeName="BLOG_DBModel.USERS">
+        <MappingFragment StoreEntitySet="USERS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="FULLNAME" ColumnName="FULLNAME" />
+          <ScalarProperty Name="BIRTHDATE" ColumnName="BIRTHDATE" />
+          <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+          <ScalarProperty Name="INSERTDATE" ColumnName="INSERTDATE" />
+          <ScalarProperty Name="UPDATEDATE" ColumnName="UPDATEDATE" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

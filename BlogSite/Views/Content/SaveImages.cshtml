@@ -1,0 +1,43 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    
+</head>
+<body>
+    <div>
+        <h2>Resim Yükle</h2>
+        @using (Html.BeginForm("SaveImages", "Content", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {   //bu alltaki tek satır formda gizli ıd tutan yani post etmek için gerekli ıd yi tutan koddur
+            @Html.Hidden("hiddenId", Url.RequestContext.RouteData.Values["Id"])
+            <p>
+                @Html.TextBox("UploadImage", "", new { type = "file" })
+            </p>
+            <p>
+                <input type="submit" value="Yükle" />
+            </p>
+
+        }
+    <hr />
+       @{ 
+           if(ViewBag.Message !=null)
+           {
+               var dir = "~/UploadImages/" + Url.RequestContext.RouteData.Values["Id"] +".jpeg";
+               @ViewBag.Message
+               <p>
+                   <img src="@Url.Content(dir)" width="300" /> 
+                </p>
+           }
+       }
+        <p>
+            @Html.ActionLink("Listeye Geri Dön !", "List")
+        </p>
+    </div>
+</body>
+</html>

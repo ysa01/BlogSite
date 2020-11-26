@@ -1,0 +1,55 @@
+﻿@model BlogSite.Bussiness.Models.Requests.Role.GetUsersRolesModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/jquery-3.5.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <title>RoleSelect</title>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-2"> </div>
+        <div class="col-md-8">
+            <div class="form-group">
+                <form method="post" action="@Url.Action("RoleSelect")">
+                    <h4>Hangi kullanıcıya rol vermek istersiniz?</h4>
+                    <label for="exampleFormControlSelect1">Kategoriler</label>
+
+                    <select class="form-control" name="USERID" required>
+                        <option value="" disabled selected>Seçiniz</option>
+                        @foreach (var item in Model.Users)
+                        {
+                            <option value="@item.ID">@item.EMAIL</option>
+                        }
+                    </select>
+
+                    <h4>Seçtiğiniz kullanıcıya hangi  rolü vermek istersiniz?</h4>
+                    <label for="exampleFormControlSelect1">roller</label>
+
+                    <select class="form-control" name="ROLEID" required>
+                        <option value="" disabled selected>Seçiniz</option>
+                        @foreach (var item in Model.Roles)
+                        {
+                            <option value="@item.ID">@item.NAME</option>
+
+                        }
+                    </select>
+                    <button type="submit" class="btn btn-success btn-md">
+                          Kaydet
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-2"> </div>
+    </div>
+</body>
+</html>

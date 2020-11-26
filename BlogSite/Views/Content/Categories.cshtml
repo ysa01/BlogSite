@@ -1,0 +1,106 @@
+﻿@model List<BlogSite.Data.CATEGORİ>
+@{
+    ViewBag.Title = "Categories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="table">
+
+    <table class="badge-dark" style="border:solid" border="1">
+        <tr>
+            <th>Kategori Resmi</th>
+            <th>Kategori Id </th>
+            <th> Kategori Adı</th>
+            <th> Kategori Link</th>
+            <th>  </th>
+            <th>  </th>
+            <th>    </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+
+
+            <tr>
+                <td>
+                </td>
+                <td>
+                    @item.CATEGORIID
+                </td>
+                <td>
+                    @item.CATEGORINAME
+                </td>
+                <td>   @item.CATEGORILINK  </td>
+                <td>
+                    <a class="btn btn-info" href="">Resim Yükle</a>
+                </td>
+                <td>
+                    <a class="btn btn-warning" href="@Url.Action("UpdateFormCategories",new { Id=item.CATEGORIID })">Güncelle</a>
+                </td>
+                <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-danger" onclick="GetId(@item.CATEGORIID)" data-toggle="modal" data-target="#exampleModal">
+                        Kategori Sil
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-dark" id="exampleModalLabel">Message!</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="text-dark">Bu Kategori Ve Altındaki İçerikler Tamamen Silinecek Onaylıyormusunuz?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <form action="@Url.Action("DeleteCategories")" method="post">
+                                        <input type="hidden" id="id" name="id" value="" />
+                                        <button type="submit" class="btn btn-primary">Onaylıyorum</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+        }
+    </table>
+
+    <div>
+        <a href="@Url.Action("CategoriesInsert")" class="btn btn-success">Kategori Ekle</a>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    function GetId(id) {
+        $("#id").val(id);
+        $("#exampleModal").show();
+    }
+</script>

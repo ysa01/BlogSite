@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BLOG_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CATEGORİ">
+    <Key>
+      <PropertyRef Name="CATEGORIID" />
+    </Key>
+    <Property Name="CATEGORIID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CATEGORINAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CATEGORILINK" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="INSERTDATE" Type="DateTime" Precision="0" />
+    <Property Name="UPDATEDATE" Type="DateTime" Precision="0" />
+    <Property Name="STATUS" Type="Int32" />
+    <Property Name="USERID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CONTENTS" Relationship="Self.FK_CONTENTS_CATEGORİ" FromRole="CATEGORİ" ToRole="CONTENTS" />
+  </EntityType>
+  <EntityType Name="CONTENTFILES">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PATH" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CONTENTID" Type="Int32" Nullable="false" />
+    <Property Name="INSERTDATE" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UPDATEDATE" Type="DateTime" Precision="3" />
+    <Property Name="STATUS" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CONTENTS" Relationship="Self.FK_CONTENTFILE_CONTENT" FromRole="CONTENTFILES" ToRole="CONTENTS" />
+  </EntityType>
+  <EntityType Name="CONTENTS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HEAD" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CONTENTTEXT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="INSERTDATE" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UPDATEDATE" Type="DateTime" Precision="3" />
+    <Property Name="STATUS" Type="Int32" Nullable="false" />
+    <Property Name="USERID" Type="Int32" Nullable="false" />
+    <Property Name="CATEGORIID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CATEGORİ" Relationship="Self.FK_CONTENTS_CATEGORİ" FromRole="CONTENTS" ToRole="CATEGORİ" />
+    <NavigationProperty Name="CONTENTFILES" Relationship="Self.FK_CONTENTFILE_CONTENT" FromRole="CONTENTS" ToRole="CONTENTFILES" />
+    <NavigationProperty Name="COMMENTS" Relationship="BLOG_DBModel.FK_COMMENTS_CONTENTS" FromRole="CONTENTS" ToRole="COMMENTS" />
+  </EntityType>
+  <EntityType Name="USER_ROLE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ROLEID" Type="Int32" Nullable="false" />
+    <Property Name="USERID" Type="Int32" Nullable="false" />
+    <Property Name="INSERTDATE" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UPDATEDATE" Type="DateTime" Precision="3" />
+    <Property Name="STATUS" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="USERS" Relationship="Self.FK_USER_ROLE_USER" FromRole="USER_ROLE" ToRole="USERS" />
+    <NavigationProperty Name="ROLES" Relationship="BLOG_DBModel.FK_USER_ROLE_ROLE1" FromRole="USER_ROLE" ToRole="ROLES" />
+  </EntityType>
+  <EntityType Name="USERS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EMAIL" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FULLNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BIRTHDATE" Type="DateTime" Precision="0" />
+    <Property Name="PASSWORD" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="INSERTDATE" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UPDATEDATE" Type="DateTime" Precision="3" />
+    <Property Name="STATUS" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="USER_ROLE" Relationship="Self.FK_USER_ROLE_USER" FromRole="USERS" ToRole="USER_ROLE" />
+  </EntityType>
+  <Association Name="FK_CONTENTS_CATEGORİ">
+    <End Role="CATEGORİ" Type="Self.CATEGORİ" Multiplicity="1" />
+    <End Role="CONTENTS" Type="Self.CONTENTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CATEGORİ">
+        <PropertyRef Name="CATEGORIID" />
+      </Principal>
+      <Dependent Role="CONTENTS">
+        <PropertyRef Name="CATEGORIID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONTENTFILE_CONTENT">
+    <End Role="CONTENTS" Type="Self.CONTENTS" Multiplicity="1" />
+    <End Role="CONTENTFILES" Type="Self.CONTENTFILES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTENTS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CONTENTFILES">
+        <PropertyRef Name="CONTENTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USER_ROLE_USER">
+    <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
+    <End Role="USER_ROLE" Type="Self.USER_ROLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="USER_ROLE">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BLOG_DBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CATEGORİ" EntityType="Self.CATEGORİ" />
+    <EntitySet Name="CONTENTFILES" EntityType="Self.CONTENTFILES" />
+    <EntitySet Name="CONTENTS" EntityType="Self.CONTENTS" />
+    <EntitySet Name="USER_ROLE" EntityType="Self.USER_ROLE" />
+    <EntitySet Name="USERS" EntityType="Self.USERS" />
+    <AssociationSet Name="FK_CONTENTS_CATEGORİ" Association="Self.FK_CONTENTS_CATEGORİ">
+      <End Role="CATEGORİ" EntitySet="CATEGORİ" />
+      <End Role="CONTENTS" EntitySet="CONTENTS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONTENTFILE_CONTENT" Association="Self.FK_CONTENTFILE_CONTENT">
+      <End Role="CONTENTS" EntitySet="CONTENTS" />
+      <End Role="CONTENTFILES" EntitySet="CONTENTFILES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USER_ROLE_USER" Association="Self.FK_USER_ROLE_USER">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="USER_ROLE" EntitySet="USER_ROLE" />
+    </AssociationSet>
+    <EntitySet Name="COMMENTS" EntityType="BLOG_DBModel.COMMENTS" />
+    <EntitySet Name="ROLES" EntityType="BLOG_DBModel.ROLES" />
+    <EntitySet Name="sysdiagrams" EntityType="BLOG_DBModel.sysdiagrams" />
+    <AssociationSet Name="FK_COMMENTS_CONTENTS" Association="BLOG_DBModel.FK_COMMENTS_CONTENTS">
+      <End Role="CONTENTS" EntitySet="CONTENTS" />
+      <End Role="COMMENTS" EntitySet="COMMENTS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USER_ROLE_ROLE1" Association="BLOG_DBModel.FK_USER_ROLE_ROLE1">
+      <End Role="ROLES" EntitySet="ROLES" />
+      <End Role="USER_ROLE" EntitySet="USER_ROLE" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="COMMENTS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="CONTENTID" Type="Int32" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="INSERTDATE" Type="DateTime" Precision="0" />
+    <Property Name="UPDATEDATE" Type="DateTime" Precision="0" />
+    <Property Name="STATUS" Type="Int32" />
+    <NavigationProperty Name="CONTENTS" Relationship="BLOG_DBModel.FK_COMMENTS_CONTENTS" FromRole="COMMENTS" ToRole="CONTENTS" />
+  </EntityType>
+  <EntityType Name="ROLES">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="INSERTDATE" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UPDATEDATE" Type="DateTime" Precision="3" />
+    <Property Name="STATUS" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="USER_ROLE" Relationship="BLOG_DBModel.FK_USER_ROLE_ROLE1" FromRole="ROLES" ToRole="USER_ROLE" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_COMMENTS_CONTENTS">
+    <End Type="BLOG_DBModel.CONTENTS" Role="CONTENTS" Multiplicity="0..1" />
+    <End Type="BLOG_DBModel.COMMENTS" Role="COMMENTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTENTS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="COMMENTS">
+        <PropertyRef Name="CONTENTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USER_ROLE_ROLE1">
+    <End Type="BLOG_DBModel.ROLES" Role="ROLES" Multiplicity="1" />
+    <End Type="BLOG_DBModel.USER_ROLE" Role="USER_ROLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROLES">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="USER_ROLE">
+        <PropertyRef Name="ROLEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

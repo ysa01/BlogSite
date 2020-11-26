@@ -1,0 +1,46 @@
+﻿
+@{
+    Layout = null;
+}
+<link href="~/Content/Login-Register.css" rel="stylesheet" />
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<!--Pulling Awesome Font -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <div class="row">
+        <div class="col-md-4"> </div>
+            <div class="col-md-4">
+                <form method="post" style="margin-top:100px;" action="@Url.Action("Login")">
+                    <div class="form-login" style="height: 36rem; ">
+                        <H3 class="text-center" style="color:cornflowerblue"><b>Hoş Geldiniz</b></H3>
+                        <input type="email" name="Email" id="userName" class="form-control input-sm chat-input" placeholder="Email" required />
+                        </br>
+                        <input type="password" name="Password" id="userPassword" class="form-control input-sm chat-input" placeholder="Şifre" required />
+                        </br>
+                        <input type="checkbox" name="IsRemember" value="true" /><b> Beni Hatırla  </b>
+                        <div class="wrapper" style="margin-top:50px;">
+                            <span class="group-btn">
+                                <button type="submit" class="btn btn-primary btn-md">
+                                    <i class="fas fa-sign-in-alt"></i>     GİRİŞ
+                                </button>
+
+                                <a class="btn btn-outline-info" href="@Url.Action("Register")"><i class="fas fa-user-plus"></i>  KAYDOL</a>
+                            </span>
+                        </div>
+                        <br />
+                        <div>
+                            <a href="#">Şifremi Unuttum</a>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4">   </div>
+        </div>
+ 

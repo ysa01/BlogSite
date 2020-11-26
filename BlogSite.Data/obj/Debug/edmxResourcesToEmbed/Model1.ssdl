@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BLOG_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CATEGORİ">
+    <Key>
+      <PropertyRef Name="CATEGORIID" />
+    </Key>
+    <Property Name="CATEGORIID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CATEGORINAME" Type="nvarchar" MaxLength="50" />
+    <Property Name="CATEGORILINK" Type="nchar" MaxLength="100" />
+    <Property Name="INSERTDATE" Type="date" />
+    <Property Name="UPDATEDATE" Type="date" />
+    <Property Name="STATUS" Type="int" />
+    <Property Name="USERID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="COMMENTS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CONTENTID" Type="int" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="50" />
+    <Property Name="INSERTDATE" Type="date" />
+    <Property Name="UPDATEDATE" Type="date" />
+    <Property Name="STATUS" Type="int" />
+    <Property Name="USERID" Type="int" />
+  </EntityType>
+  <EntityType Name="CONTENTFILES">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PATH" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="CONTENTID" Type="int" Nullable="false" />
+    <Property Name="INSERTDATE" Type="datetime" Nullable="false" />
+    <Property Name="UPDATEDATE" Type="datetime" />
+    <Property Name="STATUS" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CONTENTS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HEAD" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="CONTENTTEXT" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="INSERTDATE" Type="datetime" Nullable="false" />
+    <Property Name="UPDATEDATE" Type="datetime" />
+    <Property Name="STATUS" Type="int" Nullable="false" />
+    <Property Name="USERID" Type="int" Nullable="false" />
+    <Property Name="CATEGORIID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ROLES">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="INSERTDATE" Type="datetime" Nullable="false" />
+    <Property Name="UPDATEDATE" Type="datetime" />
+    <Property Name="STATUS" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="USER_ROLE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ROLEID" Type="int" Nullable="false" />
+    <Property Name="USERID" Type="int" Nullable="false" />
+    <Property Name="INSERTDATE" Type="datetime" Nullable="false" />
+    <Property Name="UPDATEDATE" Type="datetime" />
+    <Property Name="STATUS" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="USERS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EMAIL" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="FULLNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="BIRTHDATE" Type="date" />
+    <Property Name="PASSWORD" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="INSERTDATE" Type="datetime" Nullable="false" />
+    <Property Name="UPDATEDATE" Type="datetime" />
+    <Property Name="STATUS" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_COMMENTS_CONTENTS">
+    <End Role="CONTENTS" Type="Self.CONTENTS" Multiplicity="0..1" />
+    <End Role="COMMENTS" Type="Self.COMMENTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTENTS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="COMMENTS">
+        <PropertyRef Name="CONTENTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONTENTFILE_CONTENT">
+    <End Role="CONTENTS" Type="Self.CONTENTS" Multiplicity="1" />
+    <End Role="CONTENTFILES" Type="Self.CONTENTFILES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTENTS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CONTENTFILES">
+        <PropertyRef Name="CONTENTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONTENTS_CATEGORİ">
+    <End Role="CATEGORİ" Type="Self.CATEGORİ" Multiplicity="1" />
+    <End Role="CONTENTS" Type="Self.CONTENTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CATEGORİ">
+        <PropertyRef Name="CATEGORIID" />
+      </Principal>
+      <Dependent Role="CONTENTS">
+        <PropertyRef Name="CATEGORIID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USER_ROLE_ROLE">
+    <End Role="ROLES" Type="Self.ROLES" Multiplicity="1" />
+    <End Role="USER_ROLE" Type="Self.USER_ROLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROLES">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="USER_ROLE">
+        <PropertyRef Name="ROLEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USER_ROLE_USER">
+    <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
+    <End Role="USER_ROLE" Type="Self.USER_ROLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="USER_ROLE">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BLOG_DBModelStoreContainer">
+    <EntitySet Name="CATEGORİ" EntityType="Self.CATEGORİ" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="COMMENTS" EntityType="Self.COMMENTS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CONTENTFILES" EntityType="Self.CONTENTFILES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CONTENTS" EntityType="Self.CONTENTS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ROLES" EntityType="Self.ROLES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="USER_ROLE" EntityType="Self.USER_ROLE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_COMMENTS_CONTENTS" Association="Self.FK_COMMENTS_CONTENTS">
+      <End Role="CONTENTS" EntitySet="CONTENTS" />
+      <End Role="COMMENTS" EntitySet="COMMENTS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONTENTFILE_CONTENT" Association="Self.FK_CONTENTFILE_CONTENT">
+      <End Role="CONTENTS" EntitySet="CONTENTS" />
+      <End Role="CONTENTFILES" EntitySet="CONTENTFILES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONTENTS_CATEGORİ" Association="Self.FK_CONTENTS_CATEGORİ">
+      <End Role="CATEGORİ" EntitySet="CATEGORİ" />
+      <End Role="CONTENTS" EntitySet="CONTENTS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USER_ROLE_ROLE" Association="Self.FK_USER_ROLE_ROLE">
+      <End Role="ROLES" EntitySet="ROLES" />
+      <End Role="USER_ROLE" EntitySet="USER_ROLE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USER_ROLE_USER" Association="Self.FK_USER_ROLE_USER">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="USER_ROLE" EntitySet="USER_ROLE" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

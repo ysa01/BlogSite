@@ -1,0 +1,67 @@
+﻿
+@model  List<BlogSite.Data.CONTENTS>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_MyLayoutPage.cshtml";
+}
+
+<h2>Düzenle</h2>
+<div class="list-group table-active">
+
+    <table class="btn-outline-dark">
+        <tr>
+            <th>Resim</th>
+            <th> Id</th>
+            <th> Başlık</th>
+            <th> İçerik</th>
+            <th> Kategori  </th>
+            <th> Güncelle</th>
+            <th> Resim Ekle</th>
+            <th> Sil</th>
+        </tr>
+        @foreach (BlogSite.Data.CONTENTS item in Model)
+        {
+            <tr>
+                <td>
+                    @{
+                        var dir = "~/UploadImages/" + item.ID + ".jpeg";
+                        <img src="@Url.Content(dir)" width="30" />
+                    }
+                </td>
+                <td>
+                    @item.ID
+                </td>
+                <td>
+                    @item.HEAD
+                </td>
+                <td>
+                    @if (item.CONTENTTEXT.Length > 50)
+                    {
+                        @item.CONTENTTEXT.Substring(0, 50) <span>...</span>}
+                    else
+                    {@item.CONTENTTEXT}
+                </td>
+                <td>@item.CATEGORİ.CATEGORINAME</td>
+                <td>
+                    <a class="btn btn-warning" href="@Url.Action("UpdateList",new { Id=item.ID })">Güncelle</a>
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-info" href="@Url.Action("SaveImages",new { Id=item.ID })">Resim Yükle</a>
+
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-danger" href="@Url.Action("Delete",new { Id=item.ID })">Sil</a>
+
+                </td>
+
+
+            </tr>
+        }
+    </table>
+
+    <div>
+        <a href="@Url.Action("Insert")" class="btn btn-success">İçerik  Ekle</a>
+    </div>
+
+</div>

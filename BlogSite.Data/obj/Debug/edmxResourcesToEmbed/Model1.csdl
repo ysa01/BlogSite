@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BLOG_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CATEGORİ">
+    <Key>
+      <PropertyRef Name="CATEGORIID" />
+    </Key>
+    <Property Name="CATEGORIID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CATEGORINAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CATEGORILINK" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="INSERTDATE" Type="DateTime" Precision="0" />
+    <Property Name="UPDATEDATE" Type="DateTime" Precision="0" />
+    <Property Name="STATUS" Type="Int32" />
+    <Property Name="USERID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CONTENTS" Relationship="Self.FK_CONTENTS_CATEGORİ" FromRole="CATEGORİ" ToRole="CONTENTS" />
+  </EntityType>
+  <EntityType Name="COMMENTS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CONTENTID" Type="Int32" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="INSERTDATE" Type="DateTime" Precision="0" />
+    <Property Name="UPDATEDATE" Type="DateTime" Precision="0" />
+    <Property Name="STATUS" Type="Int32" />
+    <Property Name="USERID" Type="Int32" />
+    <NavigationProperty Name="CONTENTS" Relationship="Self.FK_COMMENTS_CONTENTS" FromRole="COMMENTS" ToRole="CONTENTS" />
+    <NavigationProperty Name="USERS" Relationship="Self.FK_COMMENTS_USERS" FromRole="COMMENTS" ToRole="USERS" />
+  </EntityType>
+  <EntityType Name="CONTENTFILES">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PATH" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CONTENTID" Type="Int32" Nullable="false" />
+    <Property Name="INSERTDATE" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UPDATEDATE" Type="DateTime" Precision="3" />
+    <Property Name="STATUS" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CONTENTS" Relationship="Self.FK_CONTENTFILE_CONTENT" FromRole="CONTENTFILES" ToRole="CONTENTS" />
+  </EntityType>
+  <EntityType Name="CONTENTS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HEAD" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CONTENTTEXT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="INSERTDATE" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UPDATEDATE" Type="DateTime" Precision="3" />
+    <Property Name="STATUS" Type="Int32" Nullable="false" />
+    <Property Name="USERID" Type="Int32" Nullable="false" />
+    <Property Name="CATEGORIID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CATEGORİ" Relationship="Self.FK_CONTENTS_CATEGORİ" FromRole="CONTENTS" ToRole="CATEGORİ" />
+    <NavigationProperty Name="COMMENTS" Relationship="Self.FK_COMMENTS_CONTENTS" FromRole="CONTENTS" ToRole="COMMENTS" />
+    <NavigationProperty Name="CONTENTFILES" Relationship="Self.FK_CONTENTFILE_CONTENT" FromRole="CONTENTS" ToRole="CONTENTFILES" />
+    <NavigationProperty Name="USERS" Relationship="Self.FK_CONTENTS_USERS" FromRole="CONTENTS" ToRole="USERS" />
+  </EntityType>
+  <EntityType Name="ROLES">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="INSERTDATE" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UPDATEDATE" Type="DateTime" Precision="3" />
+    <Property Name="STATUS" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="USER_ROLE" Relationship="Self.FK_USER_ROLE_ROLE" FromRole="ROLES" ToRole="USER_ROLE" />
+  </EntityType>
+  <EntityType Name="USER_ROLE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ROLEID" Type="Int32" Nullable="false" />
+    <Property Name="USERID" Type="Int32" Nullable="false" />
+    <Property Name="INSERTDATE" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UPDATEDATE" Type="DateTime" Precision="3" />
+    <Property Name="STATUS" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ROLES" Relationship="Self.FK_USER_ROLE_ROLE" FromRole="USER_ROLE" ToRole="ROLES" />
+    <NavigationProperty Name="USERS" Relationship="Self.FK_USER_ROLE_USER" FromRole="USER_ROLE" ToRole="USERS" />
+  </EntityType>
+  <EntityType Name="USERS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EMAIL" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FULLNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BIRTHDATE" Type="DateTime" Precision="0" />
+    <Property Name="PASSWORD" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="INSERTDATE" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UPDATEDATE" Type="DateTime" Precision="3" />
+    <Property Name="STATUS" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="COMMENTS" Relationship="Self.FK_COMMENTS_USERS" FromRole="USERS" ToRole="COMMENTS" />
+    <NavigationProperty Name="CONTENTS" Relationship="Self.FK_CONTENTS_USERS" FromRole="USERS" ToRole="CONTENTS" />
+    <NavigationProperty Name="USER_ROLE" Relationship="Self.FK_USER_ROLE_USER" FromRole="USERS" ToRole="USER_ROLE" />
+  </EntityType>
+  <Association Name="FK_CONTENTS_CATEGORİ">
+    <End Role="CATEGORİ" Type="Self.CATEGORİ" Multiplicity="1" />
+    <End Role="CONTENTS" Type="Self.CONTENTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CATEGORİ">
+        <PropertyRef Name="CATEGORIID" />
+      </Principal>
+      <Dependent Role="CONTENTS">
+        <PropertyRef Name="CATEGORIID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_COMMENTS_CONTENTS">
+    <End Role="CONTENTS" Type="Self.CONTENTS" Multiplicity="0..1" />
+    <End Role="COMMENTS" Type="Self.COMMENTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTENTS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="COMMENTS">
+        <PropertyRef Name="CONTENTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_COMMENTS_USERS">
+    <End Role="USERS" Type="Self.USERS" Multiplicity="0..1" />
+    <End Role="COMMENTS" Type="Self.COMMENTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="COMMENTS">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONTENTFILE_CONTENT">
+    <End Role="CONTENTS" Type="Self.CONTENTS" Multiplicity="1" />
+    <End Role="CONTENTFILES" Type="Self.CONTENTFILES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTENTS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CONTENTFILES">
+        <PropertyRef Name="CONTENTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONTENTS_USERS">
+    <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
+    <End Role="CONTENTS" Type="Self.CONTENTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CONTENTS">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USER_ROLE_ROLE">
+    <End Role="ROLES" Type="Self.ROLES" Multiplicity="1" />
+    <End Role="USER_ROLE" Type="Self.USER_ROLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROLES">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="USER_ROLE">
+        <PropertyRef Name="ROLEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USER_ROLE_USER">
+    <End Role="USERS" Type="Self.USERS" Multiplicity="1" />
+    <End Role="USER_ROLE" Type="Self.USER_ROLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USERS">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="USER_ROLE">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BLOG_DBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CATEGORİ" EntityType="Self.CATEGORİ" />
+    <EntitySet Name="COMMENTS" EntityType="Self.COMMENTS" />
+    <EntitySet Name="CONTENTFILES" EntityType="Self.CONTENTFILES" />
+    <EntitySet Name="CONTENTS" EntityType="Self.CONTENTS" />
+    <EntitySet Name="ROLES" EntityType="Self.ROLES" />
+    <EntitySet Name="USER_ROLE" EntityType="Self.USER_ROLE" />
+    <EntitySet Name="USERS" EntityType="Self.USERS" />
+    <AssociationSet Name="FK_CONTENTS_CATEGORİ" Association="Self.FK_CONTENTS_CATEGORİ">
+      <End Role="CATEGORİ" EntitySet="CATEGORİ" />
+      <End Role="CONTENTS" EntitySet="CONTENTS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_COMMENTS_CONTENTS" Association="Self.FK_COMMENTS_CONTENTS">
+      <End Role="CONTENTS" EntitySet="CONTENTS" />
+      <End Role="COMMENTS" EntitySet="COMMENTS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_COMMENTS_USERS" Association="Self.FK_COMMENTS_USERS">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="COMMENTS" EntitySet="COMMENTS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONTENTFILE_CONTENT" Association="Self.FK_CONTENTFILE_CONTENT">
+      <End Role="CONTENTS" EntitySet="CONTENTS" />
+      <End Role="CONTENTFILES" EntitySet="CONTENTFILES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONTENTS_USERS" Association="Self.FK_CONTENTS_USERS">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="CONTENTS" EntitySet="CONTENTS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USER_ROLE_ROLE" Association="Self.FK_USER_ROLE_ROLE">
+      <End Role="ROLES" EntitySet="ROLES" />
+      <End Role="USER_ROLE" EntitySet="USER_ROLE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USER_ROLE_USER" Association="Self.FK_USER_ROLE_USER">
+      <End Role="USERS" EntitySet="USERS" />
+      <End Role="USER_ROLE" EntitySet="USER_ROLE" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

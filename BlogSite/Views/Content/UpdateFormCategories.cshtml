@@ -1,0 +1,24 @@
+﻿@model  BlogSite.Bussiness.Models.Requests.Category.UpdateCategoryRequest
+@{
+    ViewBag.Title = "UpdateFormCategories";
+    Layout = "~/Views/Shared/_MyLayoutPage.cshtml";
+}
+@using (Html.BeginForm("UpdateFormCategories", "Content", FormMethod.Post))
+{
+<div class="form-group">
+    <h6>Kayıt Sırası</h6>
+    @Html.HiddenFor(x => x.CATEGORIID)
+    @Html.TextBoxFor(x => x.CATEGORIID, new { @class = "form-control", disabled = "true" })
+    <br />
+    <h6>Konu Başlığı</h6>
+        @Html.TextBoxFor(x=>x.CATEGORINAME , new { @class = "form-control" })
+        <br />
+        <h6>İçerik</h6>
+        @Html.TextAreaFor(x => x.CATEGORILINK, new { @class = "form-control" })
+        <br />
+    <button type="submit" class="btn btn-success " @Url.Action("Categories")>  Kaydet  </button>
+</div>
+
+
+
+}

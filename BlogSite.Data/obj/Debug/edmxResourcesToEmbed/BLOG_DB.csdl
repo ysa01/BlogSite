@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BLOG_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CONTENT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HEAD" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CONTENTTEXT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="INSERTDATE" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UPDATEDATE" Type="DateTime" Precision="3" />
+    <Property Name="STATUS" Type="Int32" Nullable="false" />
+    <Property Name="USERID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="USER" Relationship="Self.FK_CONTENT_USER" FromRole="CONTENT" ToRole="USER" />
+    <NavigationProperty Name="CONTENTFILE" Relationship="Self.FK_CONTENTFILE_CONTENT" FromRole="CONTENT" ToRole="CONTENTFILE" />
+  </EntityType>
+  <EntityType Name="CONTENTFILE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PATH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CONTENTID" Type="Int32" Nullable="false" />
+    <Property Name="INSERTDATE" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UPDATEDATE" Type="DateTime" Precision="3" />
+    <Property Name="STATUS" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CONTENT" Relationship="Self.FK_CONTENTFILE_CONTENT" FromRole="CONTENTFILE" ToRole="CONTENT" />
+  </EntityType>
+  <EntityType Name="ROLE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="INSERTDATE" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UPDATEDATE" Type="DateTime" Precision="3" />
+    <Property Name="STATUS" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="USER_ROLE" Relationship="Self.FK_USER_ROLE_ROLE" FromRole="ROLE" ToRole="USER_ROLE" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="USER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EMAIL" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FULLNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="BIRTHDATE" Type="DateTime" Precision="0" />
+    <Property Name="PASSWORD" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="INSERTDATE" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UPDATEDATE" Type="DateTime" Precision="3" />
+    <Property Name="STATUS" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CONTENT" Relationship="Self.FK_CONTENT_USER" FromRole="USER" ToRole="CONTENT" />
+    <NavigationProperty Name="USER_ROLE" Relationship="Self.FK_USER_ROLE_USER" FromRole="USER" ToRole="USER_ROLE" />
+  </EntityType>
+  <EntityType Name="USER_ROLE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ROLEID" Type="Int32" Nullable="false" />
+    <Property Name="USERID" Type="Int32" Nullable="false" />
+    <Property Name="INSERTDATE" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UPDATEDATE" Type="DateTime" Precision="3" />
+    <Property Name="STATUS" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ROLE" Relationship="Self.FK_USER_ROLE_ROLE" FromRole="USER_ROLE" ToRole="ROLE" />
+    <NavigationProperty Name="USER" Relationship="Self.FK_USER_ROLE_USER" FromRole="USER_ROLE" ToRole="USER" />
+  </EntityType>
+  <Association Name="FK_CONTENT_USER">
+    <End Role="USER" Type="Self.USER" Multiplicity="1" />
+    <End Role="CONTENT" Type="Self.CONTENT" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CONTENT">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONTENTFILE_CONTENT">
+    <End Role="CONTENT" Type="Self.CONTENT" Multiplicity="1" />
+    <End Role="CONTENTFILE" Type="Self.CONTENTFILE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTENT">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CONTENTFILE">
+        <PropertyRef Name="CONTENTID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USER_ROLE_ROLE">
+    <End Role="ROLE" Type="Self.ROLE" Multiplicity="1" />
+    <End Role="USER_ROLE" Type="Self.USER_ROLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROLE">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="USER_ROLE">
+        <PropertyRef Name="ROLEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_USER_ROLE_USER">
+    <End Role="USER" Type="Self.USER" Multiplicity="1" />
+    <End Role="USER_ROLE" Type="Self.USER_ROLE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USER">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="USER_ROLE">
+        <PropertyRef Name="USERID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BLOG_DBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CONTENT" EntityType="Self.CONTENT" />
+    <EntitySet Name="CONTENTFILE" EntityType="Self.CONTENTFILE" />
+    <EntitySet Name="ROLE" EntityType="Self.ROLE" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="USER" EntityType="Self.USER" />
+    <EntitySet Name="USER_ROLE" EntityType="Self.USER_ROLE" />
+    <AssociationSet Name="FK_CONTENT_USER" Association="Self.FK_CONTENT_USER">
+      <End Role="USER" EntitySet="USER" />
+      <End Role="CONTENT" EntitySet="CONTENT" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONTENTFILE_CONTENT" Association="Self.FK_CONTENTFILE_CONTENT">
+      <End Role="CONTENT" EntitySet="CONTENT" />
+      <End Role="CONTENTFILE" EntitySet="CONTENTFILE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USER_ROLE_ROLE" Association="Self.FK_USER_ROLE_ROLE">
+      <End Role="ROLE" EntitySet="ROLE" />
+      <End Role="USER_ROLE" EntitySet="USER_ROLE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_USER_ROLE_USER" Association="Self.FK_USER_ROLE_USER">
+      <End Role="USER" EntitySet="USER" />
+      <End Role="USER_ROLE" EntitySet="USER_ROLE" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

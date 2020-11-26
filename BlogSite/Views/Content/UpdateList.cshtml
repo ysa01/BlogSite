@@ -1,0 +1,63 @@
+﻿@model  BlogSite.Data.CONTENTS
+@{
+    ViewBag.Title = "UpdateList";
+    Layout = "~/Views/Shared/_MyLayoutPage.cshtml";
+}
+@using (Html.BeginForm("UpdateList", "Content", FormMethod.Post))
+{
+<div class="form-group">
+    <label for="exampleFormControlSelect1">Kategoriler</label>
+
+    <select class="form-control" name="CATEGORIID" required>
+        <option value="" disabled selected>Seçiniz</option>
+      
+            <option value="@Model.CATEGORIID">@Model.CATEGORİ.CATEGORINAME</option>
+
+    </select>
+    <h6>Kayıt Sırası</h6>
+    @Html.TextBoxFor(x => x.ID, new { @class = "form-control", disabled = "true" })
+    <br />
+    <h6>Konu Başlığı</h6>
+    @Html.TextBoxFor(x => x.HEAD, new { @class = "form-control" })
+    <br />
+    <h6>İçerik</h6>
+    @Html.TextAreaFor(x => x.CONTENTTEXT, new { @class = "form-control" })
+    <br />
+    <button type="submit" class="btn btn-success ">  Kaydet  </button>
+</div>
+
+
+
+}
+
+@*
+    <h2>UpdateList</h2>
+        <div class="row">
+            <div class=" col-md-7">
+                <div class="col-md-12">
+                    <form method="post" action="@Url.Action("Insert")">
+
+                        <div class="form-group">
+                            <label>@Html.LabelFor(x => x.ID) inci kullanıcı Konu Başlığı</label>
+                            <input type="text" class="form-control" name="head" aria-describedby="emailHelp" placeholder="Konu Başlığı">
+                            @Html.LabelFor(X => X.HEAD)
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">İçerik</label>
+                            <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="5">@Html.LabelFor(X => X.CONTENTTEXT)</textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlFile1">Lütfen Dosya Giriniz</label>
+                            <input type="file" class="form-control-file" name="contentfile" id="exampleFormControlFile1">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+*@
+

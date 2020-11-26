@@ -1,0 +1,27 @@
+﻿@model  BlogSite.Data.CONTENTS
+@{
+    ViewBag.Title = "calisma";
+    Layout = "~/Views/Shared/_MyLayoutPage.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-2">   </div>
+    <div class="col-md-8">
+        <h2 class="card-title text-center ">@Model.HEAD</h2>
+        <div class="card mb-4 " id="ID">
+            <img class="img-fluid" src="~/UploadImages/@Model.CONTENTFILES.FirstOrDefault().PATH" alt="Card image cap">
+            <div class="card-body" id="">
+                <p class="card-text">@Model.CONTENTTEXT</p>
+            </div>
+
+            <div class="card-footer text-muted">
+                Posted on January 1, 2020 by
+                <a href="#">Start Bootstrap</a>
+            </div>
+        </div>
+        <div class="col-md-2">   </div>
+
+    </div>
+</div>
+
+
